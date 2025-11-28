@@ -1,9 +1,9 @@
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import TextFormatter
+import requests
 
 ytt_api = YouTubeTranscriptApi()
-
 
 def get_video_id(url):
     """유튜브 URL에서 Video ID 추출"""
@@ -25,6 +25,28 @@ def get_video_id(url):
             return match.group(1)
     return None
 
+def get_video_title(video_id):
+    """
+    YouTube oEmbed를 사용해서 영상 제목만 가져오는 함수.
+    화면 표시용으로 사용한다.
+    """
+    if not video_id:
+        return None
+
+    try:
+        oembed_url = (
+            "https://www.youtube.com/oembed"
+            f"?url=https://www.youtube.com/watch?v={video_id}"
+            "&format=json"
+        )
+        resp = requests.get(oembed_url, timeout=5)
+        resp.raise_for_status()
+
+        data = resp.json()
+        return data.get("title")
+    except Exception as e:
+        print("get_video_title 에러:", e)
+        return None
 
 def get_robust_transcript(video_id):
     """
