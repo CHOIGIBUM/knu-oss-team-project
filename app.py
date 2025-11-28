@@ -10,7 +10,7 @@ if BASE_DIR not in sys.path:
     sys.path.append(BASE_DIR)
 
 # src 패키지 내부 모듈 임포트
-from src.utils import get_video_id
+from src.utils import get_video_id, get_video_title
 from src.agents import VideoAnalyst
 from src.comment_scraper import scrape_comments
 
@@ -82,15 +82,23 @@ if analyze_btn:
         st.error("URL을 입력해주세요.")
         st.stop()
 
-    # 1) URL → video_id
+    # 1) URL → video_id, video_title
     video_id = get_video_id(url)
     if not video_id:
         st.error("올바르지 않은 유튜브 URL입니다.")
         st.stop()
 
+    video_title = get_video_title(video_id)
+
     # 썸네일 영역
     st.markdown("### 🎞️ 영상 썸네일")
     safe_display_thumbnail(video_id)
+
+    if video_title:
+        st.markdown(f"#### 🏷️ {video_title}")
+    else:
+        st.caption("영상 제목을 불러오지 못했습니다.")
+        
     st.divider()
 
     # 진행 상태 표시
