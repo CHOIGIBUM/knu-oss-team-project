@@ -24,7 +24,7 @@
 * **Intelligent Summary:** `Gemini 2.5 Flash`를 활용한 3줄 요약, 챕터 구분, 핵심 키워드 추출
 * **Content Generation:** `Gemini 2.5 Pro`를 활용하여 조회수를 부르는 **블로그 포스팅** 및 **쇼츠(Shorts) 대본** 자동 생성
 
-### 2. 📊 시청자 반응 데이터 분석 ('KNIME & Local Model')
+### 2. 📊 시청자 반응 데이터 분석 (KNIME & Local Model)
 * **Data Mining:** YouTube Data API를 활용한 댓글 수집 (`src/comment_scraper.py`)
 * **Sentiment Analysis:** `nlp04/korean_sentiment_analysis_kcelectra` 모델 로컬 다운로드 및 활용
     * 댓글의 긍정/부정 감성 점수 산출
